@@ -5,10 +5,12 @@ use crossterm::terminal::{disable_raw_mode, enable_raw_mode, size, Clear, ClearT
 use std::io::{stdout, Error, Write};
 
 pub struct Terminal {}
+#[derive(Debug)]
 pub struct Size {
     pub rows: u16,
     pub cols: u16,
 }
+#[derive(Debug)]
 pub struct Position {
     pub x: u16,
     pub y: u16,
@@ -33,8 +35,8 @@ impl Terminal {
     pub fn size() -> Result<Size, Error> {
         let s = size()?;
         Ok(Size {
-            rows: s.0,
-            cols: s.1,
+            cols: s.0,
+            rows: s.1,
         })
     }
     pub fn print(s: &str) -> Result<(), Error> {

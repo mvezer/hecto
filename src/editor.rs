@@ -21,6 +21,7 @@ impl Editor {
     pub fn repl(&mut self) -> Result<(), Error> {
         loop {
             self.refresh_screen()?;
+            Self::display_welcome_message()?;
             if self.should_quit {
                 break;
             }
@@ -69,10 +70,11 @@ impl Editor {
     fn display_welcome_message() -> Result<(), Error> {
         let message = "awesome hecto terminal editor v0.1.0";
         let s = Terminal::size()?;
-        Terminal::move_cursor_to(Position {
+        let p = Position {
             x: s.cols / 2 - message.len() as u16 / 2,
             y: s.rows / 3,
-        })?;
+        };
+        Terminal::move_cursor_to(p)?;
         Terminal::print(message)?;
         Terminal::flush()?;
         Ok(())
